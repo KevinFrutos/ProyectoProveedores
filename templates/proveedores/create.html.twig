@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Crear Proveedor
+{% endblock %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="css/proveedores/index.css"/>
+{% endblock %}
+
+{% block body %}
+	<ul>
+		<li>
+			<a href="/">Proveedores</a>
+		</li>
+		<li>
+			<a href="/create">Crear proveedor</a>
+		</li>
+	</ul>
+
+	<form method="POST" action="/store">
+		<label for="nombre">Nombre:
+		</label>
+		<input type="text" name="nombre" placeholder="Nombre">
+		<label for="email">Email:
+		</label>
+		<input type="text" name="email" placeholder="Email">
+		<label for="telefono">Telefono:
+		</label>
+		<input type="number" name="telefono" placeholder="Telefono">
+		<label for="tipo">Tipo:
+		</label>
+		<select name="tipo">
+			<option value="" disabled selected>Selecciona una opción</option>
+			<option value="hotel">Hotel</option>
+			<option value="pista">Pista</option>
+			<option value="complemento">Complemento</option>
+		</select>
+		<input type="radio" name="activo" value="true">
+		<label for="css">Si</label><br>
+		<input type="radio" name="activo" value="false">
+		<label for="javascript">No</label>
+		<button type="submit">Crear Proveedor</button>
+	</form>
+{% endblock %}

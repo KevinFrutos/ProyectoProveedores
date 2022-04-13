@@ -1,0 +1,24 @@
+index:
+   path: /
+   controller: App\Controller\ProveedoresController::index
+   methods: GET
+create:
+   path: /create
+   controller: App\Controller\ProveedoresController::create
+   methods: GET
+store:
+   path: /store
+   controller: App\Controller\ProveedoresController::store
+   methods: POST
+edit:
+   path: /edit/{id}
+   controller: App\Controller\ProveedoresController::edit
+   methods: GET
+update:
+   path: /update
+   controller: App\Controller\ProveedoresController::update
+   methods: PUT
+destroy:
+   path: /destroy/{id}
+   controller: App\Controller\ProveedoresController::destroy
+   methods: DELETE
