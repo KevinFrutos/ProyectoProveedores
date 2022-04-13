@@ -13,7 +13,8 @@ class ProveedoresController extends AbstractController
 {
     public function index(): Response
     {
-        return new Response($this->render('proveedores/index.html.twig'));
+        $proveedores = $this->getDoctrine()->getRepository('App:Proveedor')->findAll();
+        return new Response($this->render('proveedores/index.html.twig', ['proveedores' => $proveedores]));
     }
 
     public function create(): Response

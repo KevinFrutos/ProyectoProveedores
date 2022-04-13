@@ -8,37 +8,48 @@
 {% endblock %}
 
 {% block body %}
-	<ul>
-		<li>
-			<a href="/">Proveedores</a>
-		</li>
-		<li>
-			<a href="/create">Crear proveedor</a>
-		</li>
-	</ul>
-
-	<form method="POST" action="/store">
-		<label for="nombre">Nombre:
-		</label>
-		<input type="text" name="nombre" placeholder="Nombre">
-		<label for="email">Email:
-		</label>
-		<input type="text" name="email" placeholder="Email">
-		<label for="telefono">Telefono:
-		</label>
-		<input type="number" name="telefono" placeholder="Telefono">
-		<label for="tipo">Tipo:
-		</label>
-		<select name="tipo">
-			<option value="" disabled selected>Selecciona una opción</option>
-			<option value="hotel">Hotel</option>
-			<option value="pista">Pista</option>
-			<option value="complemento">Complemento</option>
-		</select>
-		<input type="radio" name="activo" value="true">
-		<label for="css">Si</label><br>
-		<input type="radio" name="activo" value="false">
-		<label for="javascript">No</label>
-		<button type="submit">Crear Proveedor</button>
-	</form>
+	<div class="container p-5">
+		<div class="flex">
+			<a href="/" class="btn btn-secondary">Proveedores</a>
+			<a href="/create" class="btn btn-secondary">Crear proveedor</a>
+		</div>
+		<div class="row p-5">
+			<form method="POST" action="/store">
+				<div class="mb-3">
+					<label class="form-label" for="nombre">Nombre:
+					</label>
+					<input type="text" class="form-control" name="nombre" placeholder="Nombre">
+				</div>
+				<div class="mb-3">
+					<label class="form-label" for="email">Email:
+					</label>
+					<input type="text" class="form-control" name="email" placeholder="Email">
+				</div>
+				<div class="mb-3">
+					<label class="form-label" for="telefono">Telefono:
+					</label>
+					<input type="number" class="form-control" name="telefono" placeholder="Telefono">
+				</div>
+				<div class="mb-3">
+					<label class="form-label" for="tipo">Tipo:
+					</label>
+					<select name="tipo" class="form-select">
+						<option value="" disabled selected>Selecciona una opción</option>
+						<option value="hotel">Hotel</option>
+						<option value="pista">Pista</option>
+						<option value="complemento">Complemento</option>
+					</select>
+				</div>
+				<div class="mb-3">
+					<label class="form-label" for="tipo">¿Activo?:
+					</label>
+					<input type="radio" class="form-check-input" name="activo" value="true">
+					<label for="activo" class="form-check-label">Si</label>
+					<input type="radio" class="form-check-input" name="activo" value="false">
+					<label for="activo" class="form-check-label">No</label>
+				</div>
+				<button type="submit" class="btn btn-primary">Crear Proveedor</button>
+			</form>
+		</div>
+	</div>
 {% endblock %}
