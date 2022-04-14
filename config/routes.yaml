@@ -17,8 +17,8 @@ edit:
 update:
    path: /update
    controller: App\Controller\ProveedoresController::update
-   methods: PUT
+   methods: PUT|POST
 destroy:
    path: /destroy/{id}
    controller: App\Controller\ProveedoresController::destroy
-   methods: DELETE
+   methods: GET|DELETE

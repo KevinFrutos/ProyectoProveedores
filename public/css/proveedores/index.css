@@ -1,0 +1,17 @@
+@media screen and (max-width: 768px) {
+	.tabla {
+		display: none;
+	}
+	.carta {
+		display: block;
+	}
+}
+
+@media screen and (min-width: 768px) {
+	.tabla {
+		display: block;
+	}
+	.carta {
+		display: none;
+	}
+}

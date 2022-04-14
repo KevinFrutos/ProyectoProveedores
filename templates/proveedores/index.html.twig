@@ -8,13 +8,28 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container p-5">
+	<div class="container pt-5">
 		<div class="flex">
 			<a href="/" class="btn btn-secondary">Proveedores</a>
 			<a href="/create" class="btn btn-secondary">Crear proveedor</a>
 		</div>
+		{% if accion == "eliminar" %}
+			<div class="alert alert-danger" role="alert">
+				Se ha eliminado un proveedor!
+			</div>
+		{% endif %}
 		{% if proveedores %}
-			<div class="row pt-5">
+			<div class="tabla row pt-5">
+				{% if accion == "crear" %}
+					<div class="alert alert-success" role="alert">
+						Se ha creado un nuevo proveedor!
+					</div>
+				{% elseif accion == "actualizar" %}
+					<div class="alert alert-warning" role="alert">
+						Se ha actualizado la información de un proveedor!
+					</div>
+
+				{% endif %}
 				<table class="table table-striped">
 					<thead>
 						<tr>
@@ -46,6 +61,30 @@
 						{% endfor %}
 					</tbody>
 				</table>
+			</div>
+			<div class="carta row justify-content-center align-items-center">
+				{% for proveedor in proveedores %}
+					<div class="card" style="width: 18rem;margin-right:auto;margin-left:auto;">
+						<div class="card-body">
+							<h5 class="card-title">Nombre:
+								{{proveedor.nombre}}</h5>
+							<p class="card-text">Email:
+								{{proveedor.email}}</p>
+							<p class="card-text">Tel:
+								{{proveedor.telefono}}</p>
+							<p class="card-text">Tipo:
+								{{proveedor.tipo}}</p>
+							<p class="card-text">¿Activo?:
+								{{proveedor.activo == 1 ? 'Si' : 'No'}}</p>
+							<a href="/edit/{{proveedor.id}}" class="btn btn-warning">Editar</a>
+							<a href="/destroy/{{proveedor.id}}" class="btn btn-danger">Eliminar</a>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		{% else %}
+			<div class="alert alert-primary" role="alert">
+				No existen proveedores en la base de datos.
 			</div>
 		{% endif %}
 	</div>

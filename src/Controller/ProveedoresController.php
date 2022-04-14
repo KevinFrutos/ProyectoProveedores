@@ -11,10 +11,10 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ProveedoresController extends AbstractController
 {
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        $proveedores = $this->getDoctrine()->getRepository('App:Proveedor')->findAll();
-        return new Response($this->render('proveedores/index.html.twig', ['proveedores' => $proveedores]));
+        $proveedores = $this->getDoctrine()->getRepository(Proveedor::class)->findAll();
+        return new Response($this->render('proveedores/index.html.twig', ['proveedores' => $proveedores, 'accion' => $request->get('accion')]));
     }
 
     public function create(): Response
@@ -40,29 +40,62 @@ class ProveedoresController extends AbstractController
             $proveedor->setEmail($request->request->get('email'));
             $proveedor->setTelefono($request->request->get('telefono'));
             $proveedor->setTipo($request->request->get('tipo'));
-            $proveedor->setActivo($request->request->get('activo'));
+            $proveedor->setActivo($request->request->get('activo') == "true" ? 1 : 0);
             $proveedor->setFechaInicial($fecha);
             $proveedor->setFechaUltimaActualizacion($fecha);
 
             $entityManager->persist($proveedor);
             $entityManager->flush();
 
-            return $this->redirectToRoute('index');
+            return $this->redirectToRoute('index', ["accion" => "crear"]);
         }
     }
 
-    public function edit(): Response
+    public function edit(Request $request): Response
     {
-        return new Response($this->render('proveedores/edit.html.twig'));
+        $id = $request->get('id');
+        $proveedor = $this->getDoctrine()->getRepository(Proveedor::class)->findOneBy(['id' => $id]);
+        return new Response($this->render('proveedores/edit.html.twig', ['proveedor' => $proveedor]));
     }
 
-    public function update(): RedirectResponse
+    public function update(ManagerRegistry $doctrine, Request $request): RedirectResponse
     {
-        return $this->redirectToRoute('index');
+        if (
+            $request->request->get('nombre') !== ""
+            && $request->request->get('email') !== ""
+            && $request->request->get('telefono') !== ""
+            && $request->request->get('tipo') !== ""
+            && $request->request->get('activo') !== ""
+            && $request->request->get('id') !== ""
+        ) {
+
+            $entityManager = $doctrine->getManager();
+            $fecha = new \DateTime('@' . strtotime('now'));
+
+            $proveedor = $this->getDoctrine()->getRepository(Proveedor::class)->findOneBy(['id' => $request->request->get('id')]);
+            $proveedor->setNombre($request->request->get('nombre'));
+            $proveedor->setEmail($request->request->get('email'));
+            $proveedor->setTelefono($request->request->get('telefono'));
+            $proveedor->setTipo($request->request->get('tipo'));
+            $proveedor->setActivo($request->request->get('activo') == "true" ? 1 : 0);
+            $proveedor->setFechaUltimaActualizacion($fecha);
+
+            $entityManager->persist($proveedor);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('index', ["accion" => "actualizar"]);
+        }
     }
 
-    public function destroy(): RedirectResponse
+    public function destroy(Request $request): RedirectResponse
     {
-        return $this->redirectToRoute('index');
+        $id = $request->get('id');
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $proveedor = $this->getDoctrine()->getRepository(Proveedor::class)->findOneBy(['id' => $id]);
+        $entityManager->remove($proveedor);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('index', ["accion" => "eliminar"]);
     }
 }

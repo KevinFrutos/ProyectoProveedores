@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Crear Proveedor
+{% endblock %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="css/proveedores/index.css"/>
+{% endblock %}
+
+{% block body %}
+	<div class="container p-5">
+		<div class="flex">
+			<a href="/" class="btn btn-secondary">Proveedores</a>
+			<a href="/create" class="btn btn-secondary">Crear proveedor</a>
+		</div>
+		<div class="row p-5">
+			<form method="POST" action="/update">
+				<input type="hidden" name="id" value={{proveedor.id}}>
+				<div class="mb-3">
+					<label class="form-label" for="nombre">Nombre:
+					</label>
+					<input type="text" class="form-control" name="nombre" value={{proveedor.nombre}} placeholder="Nombre">
+				</div>
+				<div class="mb-3">
+					<label class="form-label" for="email">Email:
+					</label>
+					<input type="text" class="form-control" name="email" value={{proveedor.email}} placeholder="Email">
+				</div>
+				<div class="mb-3">
+					<label class="form-label" for="telefono">Telefono:
+					</label>
+					<input type="number" class="form-control" name="telefono" value={{proveedor.telefono}} placeholder="Telefono">
+				</div>
+				<div class="mb-3">
+					<label class="form-label" for="tipo">Tipo:
+					</label>
+					<select name="tipo" class="form-select">
+						<option value="hotel" {{proveedor.tipo == 'hotel' ? "selected" : ""}}>Hotel</option>
+						<option value="pista" {{proveedor.tipo == 'pista' ? "selected" : ""}}>Pista</option>
+						<option value="complemento" {{proveedor.tipo == 'complemento' ? "selected" : ""}}>Complemento</option>
+					</select>
+				</div>
+				<div class="mb-3">
+					<label class="form-label" for="activo">¿Activo?:
+					</label>
+					<input type="radio" class="form-check-input" name="activo" value="true" {{proveedor.activo == 1 ? "checked" : ""}}>
+					<label for="activo" class="form-check-label">Si</label>
+					<input type="radio" class="form-check-input" name="activo" value="false" {{proveedor.activo == 0 ? "checked" : ""}}>
+					<label for="activo" class="form-check-label">No</label>
+				</div>
+				<button type="submit" class="btn btn-primary">Actualizar</button>
+			</form>
+		</div>
+	</div>
+{% endblock %}
